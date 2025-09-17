@@ -1,1 +1,121 @@
-# yudou
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>鱼兜的百日刮刮乐</title>
+  <style>
+    body {
+      font-family: '微软雅黑', sans-serif;
+      background-color: #fdf9f3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #ff6f61;
+    }
+    #card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1200px;
+      margin-top: 20px;
+    }
+    .card {
+      width: 120px;
+      height: 120px;
+      margin: 10px;
+      background-color: #f5f5f5;
+      border: 2px dashed #ccc;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      background-color: #ffe;
+      border-color: #ff9f7f;
+    }
+    .cover {
+      position: absolute;
+      background-color: silver;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      border-radius: 12px;
+    }
+    .content {
+      z-index: 1;
+      padding: 10px;
+    }
+    button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff9f7f;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff7853;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 布丁的百日刮刮乐 🎉</h1>
+  <div id="card-container"></div>
+  <button onclick="renderCards()">🔄 重新洗牌</button>
+
+  <script>
+    const contents = [
+      "说出你最喜欢的一位粉丝的ID", "模仿提督说话", "念一段情书", "10秒钟跳舞挑战",
+      "说三次我爱你（要感情）", "今天要多喝水哦~", "给屏幕比个心", "画一只鱼",
+      "抽一位观众送语音包", "模仿小猫叫三声", "讲一个冷笑话", "说出你曾经最尴尬的直播瞬间",
+      "感谢过去100天的自己", "说一句最想对粉丝说的话", "播放一段记忆中的片段（可跳过）",
+      "抽一个弹幕起昵称", "用3个词形容现在的心情", "回忆第一次开播的感受",
+      "给未来的自己说句话", "表演一个emoji", "点一首你最爱的BGM", "让大家截图做表情包",
+      "分享一个隐藏的技能", "10秒钟发疯模式启动", "自夸自己3句话", "画一个“希望”",
+      "发一个限定招财手势", "讲一段内心独白", "假装在领奖", "喊一句：兜兜是最棒的！",
+      "装作没看见弹幕", "展示一个舞台小技巧", "模仿一个经典台词", "即兴编歌一句",
+      "默念一段祝福", "说：我不会忘记你们的"
+    ];
+
+    function shuffleArray(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function renderCards() {
+      const container = document.getElementById('card-container');
+      container.innerHTML = '';
+      const shuffled = shuffleArray([...contents]);
+      shuffled.forEach(text => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const cover = document.createElement('div');
+        cover.className = 'cover';
+        const content = document.createElement('div');
+        content.className = 'content';
+        content.textContent = text;
+        card.appendChild(content);
+        card.appendChild(cover);
+        cover.addEventListener('click', () => {
+          cover.style.display = 'none';
+        });
+        container.appendChild(card);
+      });
+    }
+
+    // 初次加载
+    renderCards();
+  </script>
+</body>
+</html>
