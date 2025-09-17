@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>刮刮乐互动</title>
+  <style>
+    body {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    .card {
+      width: 150px;
+      height: 150px;
+      margin: 10px;
+      position: relative;
+      background-color: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .card .cover {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: silver;
+      /* 模拟刮刮乐的遮盖层 */
+      z-index: 2;
+    }
+    .card .content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      color: #333;
+      z-index: 1;
+      visibility: hidden;
+      padding: 10px;
+      text-align: center;
+    }
+    .reset-button {
+      width: 200px;
+      padding: 10px;
+      margin: 20px auto;
+      display: block;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="cards-container"></div>
+  <button class="reset-button" id="reset">重新洗牌</button>
+
+  <script>
+    const contentList = [
+      "真心话", "唱一首歌", "跳10秒舞", "模仿角色", "讲一个冷笑话",
+      "感谢粉丝", "让观众点歌", "画只猫", "扮鬼脸", "分享秘密",
+      "唱跑调歌", "说三次我爱你", "讲段尬聊", "唱rap", "演默剧",
+      "背唐诗", "学方言", "做鬼步舞", "问答互动", "回答100个问题中一个",
+      "拍手10次", "喝一小口水", "说三次粉丝名字", "拿手机自拍一个", "比心",
+      "假装傲娇", "念童谣", "夸自己三次", "背歌词", "讲段失败经历",
+      "说笑话", "说唱", "演戏", "随机纸条画画", "快问快答", "祝福粉丝"
+    ];
+
+    function shuffleArray(arr) {
+      return arr.sort(() => Math.random() - 0.5);
+    }
+
+    function renderCards() {
+      const container = document.getElementById("cards-container");
+      container.innerHTML = "";
+      const shuffled = shuffleArray([...contentList]);
+      shuffled.forEach(text => {
+        const card = document.createElement("div");
+        card.className = "card";
+        const cover = document.createElement("div");
+        cover.className = "cover";
+        const content = document.createElement("div");
+        content.className = "content";
+        content.textContent = text;
+        card.appendChild(content);
+        card.appendChild(cover);
+        cover.addEventListener("click", () => {
+          cover.style.visibility = "hidden";
+          content.style.visibility = "visible";
+        });
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById("reset").addEventListener("click", renderCards);
+
+    // 页面加载时第一次生成
+    renderCards();
+  </script>
+</body>
+</html>
